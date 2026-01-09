@@ -202,8 +202,21 @@ st.divider()
 # -------------------------------
 @st.cache_data
 def load_data():
-    df1 = pd.read_csv("parte_1.zip/parte_1/parte_1.csv")
-    df2 = pd.read_csv("parte_2.zip/parte_2/parte_2.csv")
+    zip_path1 = "parte_1.zip"      # tu archivo zip
+    csv_inside_zip1 = "parte_1/parte_1.csv"  # ruta dentro del zip
+    with zipfile.ZipFile(zip_path1, 'r') as zip_ref:
+    # Abrir el CSV dentro del zip como archivo
+        with zip_ref.open(csv_inside_zip1) as csv_file1:
+            df1 = pd.read_csv(csv_file1)
+    zip_path2 = "parte_2.zip"      # tu archivo zip
+    csv_inside_zip2 = "parte_2/parte_2.csv"  # ruta dentro del zip
+    with zipfile.ZipFile(zip_path2, 'r') as zip_ref:
+    # Abrir el CSV dentro del zip como archivo
+        with zip_ref.open(csv_inside_zip2) as csv_file2:
+            df2 = pd.read_csv(csv_file2)
+
+    #df1 = pd.read_csv("parte_1.zip/parte_1/parte_1.csv")
+    #df2 = pd.read_csv("parte_2.zip/parte_2/parte_2.csv")
 
     df = pd.concat([df1, df2], ignore_index=True)
 
@@ -1397,6 +1410,7 @@ elif pagina == "📇​ Evolución Temporal":
 
 st.divider()
 st.caption("© 2025 - Cecilia Díaz Álvaro")
+
 
 
 
