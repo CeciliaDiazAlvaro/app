@@ -202,8 +202,8 @@ st.divider()
 # -------------------------------
 @st.cache_data
 def load_data():
-    df1 = pd.read_csv("parte_1.zip/parte1/parte_1.csv")
-    df2 = pd.read_csv("parte_2.zip/parte2/parte_2.csv")
+    df1 = pd.read_csv("parte_1.zip/parte_1/parte_1.csv")
+    df2 = pd.read_csv("parte_2.zip/parte_2/parte_2.csv")
 
     df = pd.concat([df1, df2], ignore_index=True)
 
@@ -1397,5 +1397,6 @@ elif pagina == "📇​ Evolución Temporal":
 
 st.divider()
 st.caption("© 2025 - Cecilia Díaz Álvaro")
+
 
 
