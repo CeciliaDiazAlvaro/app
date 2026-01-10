@@ -239,7 +239,7 @@ if pagina == "🦞 HomePage":
 
     
     with col2:
-        st.image("C:/Users/cecil/OneDrive/Pictures/Capturas de pantalla/pngtree-red-lobster-boiled-sketching-craw-vector-png-image_17551474.png", width=400)
+        st.image("pngtree-red-lobster-boiled-sketching-craw-vector-png-image_17551474.png", width=400)
 
     st.markdown("""
         <h1 style="
@@ -1424,3 +1424,4 @@ elif pagina == "📇​ Evolución Temporal":
 
 st.divider()
 st.caption("© 2025 - Cecilia Díaz Álvaro")
+
