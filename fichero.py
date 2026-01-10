@@ -1413,18 +1413,19 @@ elif pagina == "📇​ Evolución Temporal":
     ">
     <h3 style="text-align:center; color: #C21807; margin-bottom: 20px; font-size: 40px">​💰 Conclusión Ventas</h3>
     <ul>
-    <li style= "margin-left: 180px">Descenso general de las ventas durante el período analizado.</li>
-    <li style= "margin-left: 180px">Alta dependencia de promociones (más del 50% del volumen vendido).</li>
-    <li style= "margin-left: 180px">Manabí lidera el crecimiento y desarrollo comercial.</li>
-    <li style= "margin-left: 180px">Mejor rendimiento en tiendas tipo A; bajo desempeño en tipo C.</li>
-    <li style= "margin-left: 180px;  margin-bottom: 20px">Mayor volumen de ventas en días festivos, especialmente festivos añadidos (Additional).</li>
-    <p style= "margin-left: 30px"><b>Implicación:</b> reforzar estrategias promocionales y priorizar inversión en tiendas tipo A y regiones de alto rendimiento.</p>
+    <li style= "margin-left: 200px">Descenso general de las ventas durante el período analizado.</li>
+    <li style= "margin-left: 200px">Alta dependencia de promociones (más del 50% del volumen vendido).</li>
+    <li style= "margin-left: 200px">Manabí lidera el crecimiento y desarrollo comercial.</li>
+    <li style= "margin-left: 200px">Mejor rendimiento en tiendas tipo A; bajo desempeño en tipo C.</li>
+    <li style= "margin-left: 200px;  margin-bottom: 20px">Mayor volumen de ventas en días festivos, especialmente festivos añadidos (Additional).</li>
+    <p style= "margin-left: 50px"><b>Implicación:</b> reforzar estrategias promocionales y priorizar inversión en tiendas tipo A y regiones de alto rendimiento.</p>
     </ul>
     </div>
     """, unsafe_allow_html=True)
 
 st.divider()
 st.caption("© 2025 - Cecilia Díaz Álvaro")
+
 
 
 
