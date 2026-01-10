@@ -1418,13 +1418,14 @@ elif pagina == "📇​ Evolución Temporal":
     <li style= "margin-left: 300px">Manabí lidera el crecimiento y desarrollo comercial.</li>
     <li style= "margin-left: 300px">Mejor rendimiento en tiendas tipo A; bajo desempeño en tipo C.</li>
     <li style= "margin-left: 300px;  margin-bottom: 20px">Mayor volumen de ventas en días festivos, especialmente festivos añadidos (Additional).</li>
-    <p style= "margin-left: 100px"><b>Implicación:</b> reforzar estrategias promocionales y priorizar inversión en tiendas tipo A y regiones de alto rendimiento.</p>
+    <p style= "margin-left: 200px"><b>Implicación:</b> reforzar estrategias promocionales y priorizar inversión en tiendas tipo A y regiones de alto rendimiento.</p>
     </ul>
     </div>
     """, unsafe_allow_html=True)
 
 st.divider()
 st.caption("© 2025 - Cecilia Díaz Álvaro")
+
 
 
 
