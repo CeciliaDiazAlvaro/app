@@ -869,6 +869,7 @@ elif pagina == "🌐​ Análisis por Estado":
         mapbox=dict(
             style="open-street-map",  
             center={"lat": -1.7, "lon": -80.5}, 
+            zoom=5.7,
         ),
         margin=dict(t=0, b=0, l=10, r=0),
         height=500,
@@ -1424,5 +1425,6 @@ elif pagina == "📇​ Evolución Temporal":
 
 st.divider()
 st.caption("© 2025 - Cecilia Díaz Álvaro")
+
 
 
