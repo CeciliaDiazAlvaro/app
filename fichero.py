@@ -194,7 +194,7 @@ st.divider()
 # -------------------------------
 # CARGA DE DATOS
 # -------------------------------
-@st.cache_data
+#@st.cache_data
 def load_data():
     zip_path1 = "parte_1.zip"      # tu archivo zip
     csv_inside_zip1 = "parte_1.csv"  # ruta dentro del zip
@@ -1424,4 +1424,5 @@ elif pagina == "📇​ Evolución Temporal":
 
 st.divider()
 st.caption("© 2025 - Cecilia Díaz Álvaro")
+
 
