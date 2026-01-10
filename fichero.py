@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Plantilla Básica de Streamlit
-Autor: Iñigo Asensio
-Fecha: 2025
-Descripción: Plantilla base para crear aplicaciones Streamlit
-"""
 
 import streamlit as st
 import pandas as pd
@@ -12,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import plotly.express as px
 import zipfile
+
 
 #########################
 ## CONFIGURACIÓN DE PÁGINA
@@ -163,7 +157,7 @@ with st.sidebar:
     filtro_2 = st.slider("Ajuste", 0, 100, 50)
 
     st.divider()
-    st.caption("© 2025 - Mi Aplicación")
+    st.caption("© 2025 - Cecilia Díaz Álvaro")
 
 #########################
 ## CONTENIDO PRINCIPAL
@@ -191,7 +185,7 @@ st.markdown(
     </style>
 
     <div class="logo-text">🦞 Empresa de Alimentación El Bogavante</div>
-    <div class="subtitle-text">Estudio 2025</div>
+    <div class="subtitle-text">Estudio Anual</div>
     """,
     unsafe_allow_html=True
 )
@@ -241,9 +235,9 @@ if pagina == "🦞 HomePage":
         RESUMEN ANUAL VENTAS 
         </h1>
         """, unsafe_allow_html=True)
-    col1, col2, col3 = st.columns([1.5, 2, 1])  # col2 es más ancha para centrar
+    col1, col2, col3 = st.columns([1.5, 2, 1])  
 
-    # Poner la imagen en la columna central
+    
     with col2:
         st.image("C:/Users/cecil/OneDrive/Pictures/Capturas de pantalla/pngtree-red-lobster-boiled-sketching-craw-vector-png-image_17551474.png", width=400)
 
@@ -261,7 +255,7 @@ if pagina == "🦞 HomePage":
 
 elif pagina == "📈 Visualización Global":
 
-    col1, col2, col3 = st.columns([1, 2, 1])  # columnas: margen, contenido, margen
+    col1, col2, col3 = st.columns([1, 2, 1])  
     with col2:
         st.markdown(
             """
@@ -325,7 +319,7 @@ elif pagina == "📈 Visualización Global":
         cols = st.columns(len(row))
         for i, state in enumerate(row):
             with cols[i]:
-                kpi_card_states(state, "")  # valor vacío, solo para mostrar el nombre
+                kpi_card_states(state, "")  
 
     st.divider()
 
@@ -363,7 +357,6 @@ elif pagina == "📈 Visualización Global":
 
     colA, colB = st.columns(2)
 
-    # i. Top 10 productos más vendidos
 
     with colA:
 
@@ -374,19 +367,19 @@ elif pagina == "📈 Visualización Global":
             .head(10)
         ).reset_index()
 
-        # Crear gráfico de barras interactivo
+
         fig = px.bar(
             top_families,
             x='family',
             y='sales',
-            text='sales',  # esto pone los valores encima de las barras
-            color_discrete_sequence=["#F88379"]  # mismo color naranja
+            text='sales',  
+            color_discrete_sequence=["#F88379"] 
         )
 
-        # Personalizar el texto de los valores
+       
         fig.update_traces(
-            texttemplate='%{y:,}',  # separador de miles
-            textposition='outside',  # colocar encima de la barra
+            texttemplate='%{y:,}',
+            textposition='outside',  
             textfont_size=16
         )
 
@@ -403,13 +396,12 @@ elif pagina == "📈 Visualización Global":
             xaxis_tickangle=-45,
             yaxis=dict(tickformat=','),
             margin=dict(t=80, b=100),
-            height=525    # márgenes para que no se solape texto
+            height=525    
         )
 
-        # Mostrar en Streamlit
+       
         st.plotly_chart(fig, use_container_width=True)
 
-            # iii. Top 10 tiendas con ventas en productos en promoción
 
         promo_df = df[df["onpromotion"] == True]
 
@@ -427,10 +419,10 @@ elif pagina == "📈 Visualización Global":
         # Gráfico vertical interactivo
         fig2 = px.bar(
             top_tiendas_promo,
-            x='store_label',  # eje horizontal = tiendas
-            y='sales',        # eje vertical = ventas
-            text='sales',     # valores encima de barras
-            color_discrete_sequence=['#9B59B6']  # color naranja atractivo
+            x='store_label', 
+            y='sales',       
+            text='sales',     
+            color_discrete_sequence=['#9B59B6']  
         )
 
         fig2.update_traces(
@@ -448,16 +440,16 @@ elif pagina == "📈 Visualización Global":
             },
             xaxis_title="Tienda",
             yaxis_title="Ventas",
-            xaxis_tickangle=-45,  # rotar etiquetas para que no se solapen
+            xaxis_tickangle=-45,  
             yaxis=dict(tickformat=','),
-            margin=dict(t=80, b=150, l=80),  # margen inferior mayor para etiquetas
+            margin=dict(t=80, b=150, l=80),  
             height=525 
         )
 
         st.plotly_chart(fig2, use_container_width=True)
 
     with colB:
-        # Agrupar y ordenar
+        
         ventas_tienda = (
             df.groupby("store_nbr")["sales"]
             .sum()
@@ -465,27 +457,27 @@ elif pagina == "📈 Visualización Global":
             .reset_index()
         )
 
-        # Crear columna para etiquetas del eje Y
+        
         ventas_tienda['store_label'] = ventas_tienda['store_nbr'].apply(lambda x: f"T. {x}")
 
-        # Gráfico de barras horizontal interactivo
+       
         fig = px.bar(
             ventas_tienda,
-            y='store_label',  # eje vertical con etiquetas personalizadas
+            y='store_label', 
             x='sales',
-            text='sales',     # valores sobre las barras
+            text='sales',     
             orientation='h',
             color_discrete_sequence=["#1CB960"]
         )
 
-        # Personalizar valores sobre las barras
+        
         fig.update_traces(
-            texttemplate='%{x:,}',  # separador de miles
+            texttemplate='%{x:,}',  
             textposition='outside',
             textfont_size=14
         )
 
-        # Layout del gráfico
+       
         fig.update_layout(
             title={
                 'text': "Ventas por Tienda",
@@ -495,12 +487,11 @@ elif pagina == "📈 Visualización Global":
             },
             xaxis_title="Ventas",
             yaxis_title="Tienda",
-            yaxis=dict(autorange="reversed"),  # la tienda con más ventas arriba
-            margin=dict(t=80, b=50, l=100),    # margen izquierdo mayor
+            yaxis=dict(autorange="reversed"),  
+            margin=dict(t=80, b=50, l=100),    
             height=1000
         )
 
-        # Mostrar en Streamlit
         st.plotly_chart(fig, use_container_width=True)
 
 
@@ -590,7 +581,7 @@ elif pagina == "📈 Visualización Global":
             .reset_index()
         )
 
-        # Gráfico de barras interactivo
+       
         fig = px.bar(
             weekday_sales,
             x="day_of_week",
@@ -599,14 +590,14 @@ elif pagina == "📈 Visualización Global":
             color_discrete_sequence=["#F4A6C1"] 
         )
 
-        # Personalizar valores
+       
         fig.update_traces(
-            texttemplate='%{y:,.0f}',  # media sin decimales + separador miles
+            texttemplate='%{y:,.0f}',  
             textposition='outside',
             textfont_size=14
         )
 
-        # Layout
+       
         fig.update_layout(
             title={
                 'text': "Ventas medias por día de la semana",
@@ -639,8 +630,8 @@ elif pagina == "📈 Visualización Global":
         month_sales,
         x="month_name",
         y="sales",
-        markers=True,                # puntitos sobre la línea
-        color_discrete_sequence=["#2471A3"]  # color arena
+        markers=True,                
+        color_discrete_sequence=["#2471A3"]  
     )
 
     fig.update_traces(
@@ -714,7 +705,7 @@ elif pagina == "📋​ Análisis por tienda":
         unsafe_allow_html=True
         )
 
-    # Selectbox clásico
+    
     
     with col2:
         store = st.selectbox(
@@ -728,23 +719,23 @@ elif pagina == "📋​ Análisis por tienda":
 
     sales_year = df_store.groupby("year")["sales"].sum().reset_index()
 
-    # Gráfico de barras interactivo estilo Plotly
+    
     fig = px.bar(
         sales_year,
         x="year",
         y="sales",
-        text="sales",  # mostrar valores sobre las barras
-        color_discrete_sequence=["#FFA65B"]  # naranja intenso
+        text="sales",  
+        color_discrete_sequence=["#FFA65B"] 
     )
 
-    # Personalizar los valores sobre las barras
+    
     fig.update_traces(
-        texttemplate='%{y:.}',  # separador de miles
+        texttemplate='%{y:,.0f}',  
         textposition='outside',
         textfont_size=14
     )
 
-    # Layout del gráfico
+    
     fig.update_layout(
         title={
             'text': '<b>Ventas por año</b>',
@@ -760,7 +751,7 @@ elif pagina == "📋​ Análisis por tienda":
         height=700
     )
 
-    # Mostrar en Streamlit
+    
     st.plotly_chart(fig, use_container_width=True)
 
     st.markdown(" ")
@@ -772,21 +763,21 @@ elif pagina == "📋​ Análisis por tienda":
         total_ventas = int(df_store["sales"].sum())
         kpi_card_shop(
             "Productos vendidos",
-            f"{total_ventas:,}".replace(",", " ")  # convierte la coma en espacio
+            f"{total_ventas:,}" 
         )
 
     with colb:
         promo_products = df_store[df_store["onpromotion"] > 0].shape[0]
         kpi_card_shop(
             "Productos en promoción",
-            f"{promo_products:,}".replace(",", " ")  # idem
+            f"{promo_products:,}"
         )
 
 
 
 
 elif pagina == "🌐​ Análisis por Estado":
-        # Título centrado
+        
     col1, col2, col3 = st.columns([1.1, 2, 1])
     with col2:
         st.markdown(
@@ -827,7 +818,7 @@ elif pagina == "🌐​ Análisis por Estado":
         unsafe_allow_html=True
         )
 
-    # Selectbox clásico
+   
     
     with col2:
         state = st.selectbox(
@@ -837,7 +828,7 @@ elif pagina == "🌐​ Análisis por Estado":
     st.markdown(" ")
     st.markdown(" ")
 
-    # 4️⃣ Mapa con estados
+   
     state_coords = {
         "Azuay": (-2.9006, -79.0045),
         "Bolivar": (-1.6006, -79.0001),
@@ -863,29 +854,28 @@ elif pagina == "🌐​ Análisis por Estado":
         "lon": state_coords[state][1]
     }])
 
-    # Creamos el mapa
+    
     fig_map = px.scatter_mapbox(
         df_map,
         lat="lat",
         lon="lon",
         hover_name="state",
-        size=[30],  # tamaño grande para marcar
-        color_discrete_sequence=["#C0392B"],  # color destacado
+        size=[30],  
+        color_discrete_sequence=["#C0392B"],  
     )
 
-    # Personalizamos el layout
+    
     fig_map.update_layout(
         mapbox=dict(
-            style="open-street-map",  # base gris minimalista
-            center={"lat": -1.7, "lon": -80.5},  # centrado en Ecuador
-            zoom=5.7,
+            style="open-street-map",  
+            center={"lat": -1.7, "lon": -80.5}, 
         ),
         margin=dict(t=0, b=0, l=10, r=0),
         height=500,
         showlegend=False
     )
 
-    # Añadimos etiqueta de texto del estado directamente sobre el punto
+    
     fig_map.add_scattermapbox(
         lat=[state_coords[state][0]],
         lon=[state_coords[state][1]],
@@ -895,7 +885,7 @@ elif pagina == "🌐​ Análisis por Estado":
         textfont=dict(size=16, color="#C0392B", family="Arial Black")
     )
 
-    # Mostrar en Streamlit
+    
     st.plotly_chart(fig_map, use_container_width=True)
     st.markdown(" ")
     st.markdown(" ")
@@ -906,19 +896,19 @@ elif pagina == "🌐​ Análisis por Estado":
     col3, col4 = st.columns(2)
 
     with col4:
-    # Transacciones por año
+    
         transactions = df_state.groupby("year")["transactions"].sum().reset_index()
 
-        # Gráfico de línea interactivo
+        
         fig = px.line(
             transactions,
             x="year",
             y="transactions",
-            markers=True,  # puntitos sobre la línea
-            color_discrete_sequence=["#FF8FD6"]  # naranja intenso
+            markers=True,  
+            color_discrete_sequence=["#FF8FD6"]  
         )
 
-        # Añadir valores sobre los puntos
+        
         fig.update_traces(
             texttemplate='<b>%{y:.}</b>',
             textposition='top center',
@@ -926,7 +916,7 @@ elif pagina == "🌐​ Análisis por Estado":
             line=dict(width=3)
         )
 
-        # Layout del gráfico
+        
         fig.update_layout(
             title={
                 'text': f"<b>Transacciones por año </b>",
@@ -937,12 +927,12 @@ elif pagina == "🌐​ Análisis por Estado":
             xaxis_title="Año",
             yaxis_title="Número de transacciones",
             yaxis=dict(tickformat=',', showgrid=True, gridcolor='rgba(0,0,0,0.1)'),
-            xaxis=dict(dtick=1,showgrid=True),  # mostrar cada año
+            xaxis=dict(dtick=1,showgrid=True),  
             margin=dict(t=80, b=100, l=60, r=40),
             height=550
         )
 
-        # Mostrar en Streamlit
+        
         st.plotly_chart(fig, use_container_width=True)
 
     with col3:
@@ -954,29 +944,29 @@ elif pagina == "🌐​ Análisis por Estado":
             .reset_index()
         )
 
-        # Etiquetas bonitas para el eje Y
+        
         ventas_tienda_estado["store_label"] = ventas_tienda_estado["store_nbr"].apply(
             lambda x: f"Tienda {x}"
         )
 
-        # Gráfico de barras horizontal interactivo
+        
         fig = px.bar(
             ventas_tienda_estado,
             y="store_label",
             x="sales",
             orientation="h",
             text="sales",
-            color_discrete_sequence=["#50C878"]  # morado elegante
+            color_discrete_sequence=["#50C878"] 
         )
 
-        # Personalización de los valores
+        
         fig.update_traces(
             texttemplate="<b>%{x:.}</b>",
             textposition="outside",
             textfont=dict(size=14)
         )
 
-        # Layout coherente con el resto del dashboard
+       
         fig.update_layout(
             title={
                 "text": f"<b>Ranking tiendas con más ventas</b>",
@@ -986,16 +976,16 @@ elif pagina == "🌐​ Análisis por Estado":
             },
             xaxis_title="Ventas",
             yaxis_title="",
-            yaxis=dict(autorange="reversed"),  # mayor venta arriba
+            yaxis=dict(autorange="reversed"),  
             xaxis=dict(tickformat=",", showgrid=True, gridcolor="rgba(0,0,0,0.1)"),
             margin=dict(t=80, b=50, l=0, r=40),
             height=520
         )
 
-        # Mostrar gráfico
+        
         st.plotly_chart(fig, use_container_width=True)
 
-    #Producto más vendido
+    
     producto_top_estado = (
         df_state.groupby("family")["sales"]
         .sum()
@@ -1011,12 +1001,12 @@ elif pagina == "🌐​ Análisis por Estado":
 
     kpi_card_product(
     "Producto más vendido",
-    value=f"{producto_nombre} ({producto_ventas:,} ventas)".replace(",", " ")
+    value=f"{producto_nombre} ({producto_ventas:,} ventas)"
     )
 
 elif pagina == "📇​ Evolución Temporal":
 
-    # Título centrado
+    
     col1, col2, col3 = st.columns([1.1, 2, 1])
     with col2:
         st.markdown(
@@ -1040,18 +1030,18 @@ elif pagina == "📇​ Evolución Temporal":
     st.markdown(" ")
 
 
-    # Ventas por año ordenado de más antiguo a menos
+    
     ventas_year = df.groupby("year")["sales"].sum().sort_index()
 
-    #Calculamos el crecimiento a lo largo de los años
+   
     crecimiento_pct = (
         (ventas_year.iloc[-1] - ventas_year.iloc[-2]) / ventas_year.iloc[-2] * 100
     )
 
-    #Cuánto de nuestro negocio depende de promociones
+    
     pct_promo = df[df["onpromotion"] > 0]["sales"].sum() / df["sales"].sum() * 100
 
-    #Cuánto hemos crecido en cada estado
+    
     crecimiento_estado = (
         df.groupby(["state", "year"])["sales"].sum()
         .reset_index()
@@ -1064,7 +1054,7 @@ elif pagina == "📇​ Evolución Temporal":
     ) / crecimiento_estado.iloc[:, -2] * 100
 
 
-    #Mejor y peor estado encuanto a ventas
+    
     estado_top = crecimiento_estado["crecimiento"].idxmax()
     estado_peor = crecimiento_estado["crecimiento"].idxmin()
 
@@ -1088,7 +1078,7 @@ elif pagina == "📇​ Evolución Temporal":
             color_text_crecimiento,
         )
 
-  # amarillo suave
+  
 
     with col2:
         kpi_card_resumen(
@@ -1116,9 +1106,6 @@ elif pagina == "📇​ Evolución Temporal":
     st.markdown(" ")
     st.divider()
 
-    # =========================
-    # 2️⃣ VENTAS VS PROMOCIÓN
-    # =========================
     st.markdown(
     """
     <h2 style="
@@ -1147,28 +1134,28 @@ elif pagina == "📇​ Evolución Temporal":
         .reset_index()
     )
 
-    # Crear gráfico de dispersión mejorado
+    
     colores = [
-    "#FFA65B",  # naranja intenso
-    "#6CA0DC",  # azul pastel más oscuro
-    "#C0392B",  # rojo intenso
-    "#7A3EBF",  # morado elegante más oscuro
-    "#4FB286",  # verde esmeralda oscuro
-    "#E6A75A",  # amarillo-anaranjado oscuro
-    "#5DA8B6",  # cyan oscuro
-    "#D77FA1"   # rosa oscuro
+    "#FFA65B", 
+    "#6CA0DC", 
+    "#C0392B", 
+    "#7A3EBF",  
+    "#4FB286", 
+    "#E6A75A",  
+    "#5DA8B6",  
+    "#D77FA1"  
 ]
     fig = px.scatter(
         promo_state,
         x="promo",
         y="ventas",
         size="transacciones",
-        size_max=40,  # limitar tamaño de los puntos
-        color="ventas",  # color según ventas totales
-        color_discrete_sequence=colores,  # escala de color más elegante
+        size_max=40,  
+        color="ventas",  
+        color_discrete_sequence=colores,  
         hover_data={
             "state": True,
-            "ventas": ":,.0f",  # formato con separador de miles
+            "ventas": ":,.0f",  
             "promo": ":.1f",
             "transacciones": ":,.0f"
         },
@@ -1180,12 +1167,12 @@ elif pagina == "📇​ Evolución Temporal":
     )
     fig.update_traces(
         marker=dict(
-            line=dict(color="black", width=1.5)  # borde negro para remarcar
+            line=dict(color="black", width=1.5) 
         )
     )
 
 
-    # Layout más limpio
+    
     fig.update_layout(
         height=550,
         title={
@@ -1200,15 +1187,13 @@ elif pagina == "📇​ Evolución Temporal":
         template="plotly_white"
     )
 
-    # Mostrar en Streamlit
+    
     st.plotly_chart(fig, use_container_width=True)
     st.markdown(" ")
     st.markdown(" ")
     st.divider()
 
-    # =========================
-    # 3️⃣ EFICIENCIA POR TIPO DE TIENDA
-    # =========================
+    
     st.markdown(
     """
     <h2 style="
@@ -1257,7 +1242,9 @@ elif pagina == "📇​ Evolución Temporal":
         title={
             "text":"<b>Ventas medias por tienda</b>",
             "x": 0.5
-        }
+        },
+        yaxis_title = "Ventas",
+        xaxis_title = "Tipo tienda"
     )
 
     st.plotly_chart(fig, use_container_width=True)
@@ -1319,16 +1306,18 @@ elif pagina == "📇​ Evolución Temporal":
                 "text":"<b>Ventas medias días festivos y laborables</b>",
                 "x": 0.3
             },
-            yaxis=dict(tickformat=",")
+            yaxis=dict(tickformat=","),
+            yaxis_title = "Ventas",
+            xaxis_title = "Tipo de día"
         )
 
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-    # Filtrar solo los días festivos
+   
         df_holiday = df[df["holiday_type"].notnull()]
 
-        # Agrupar por día de la semana del festivo y calcular ventas medias
+        
         ventas_por_dia_festivo = (
             df_holiday.groupby("day_of_week")["sales"]
             .mean()
@@ -1336,7 +1325,7 @@ elif pagina == "📇​ Evolución Temporal":
             .reset_index()
         )
 
-        # Gráfico de barras con colores agradables
+        
         fig = px.bar(
             ventas_por_dia_festivo,
             x="day_of_week",
@@ -1364,7 +1353,7 @@ elif pagina == "📇​ Evolución Temporal":
 
         st.plotly_chart(fig, use_container_width=True)
 
-    # Ventas según día de la semana y tipo de festivo
+    
     ventas_dia_festivo = (
         df.groupby(["day_of_week", "holiday_type"])
         .agg(ventas=("sales", "sum"))
@@ -1375,7 +1364,7 @@ elif pagina == "📇​ Evolución Temporal":
     "Thursday", "Friday", "Saturday", "Sunday"
     ]
 
-    # Gráfico de barras agrupadas
+    
     fig = px.bar(
         ventas_dia_festivo,
         x="day_of_week",
@@ -1389,9 +1378,9 @@ elif pagina == "📇​ Evolución Temporal":
         )  
     
 
-    # Personalización del layout
+    
     fig.update_traces(
-        texttemplate="%{y:,.0f}".replace(",", " "),  # separar miles con espacio
+        texttemplate="%{y:,.0f}".replace(",", " "), 
         textposition="outside"
     )
 
@@ -1404,14 +1393,34 @@ elif pagina == "📇​ Evolución Temporal":
         xaxis=dict(showgrid=False)
     )
 
-    # Mostrar en Streamlit
+   
     st.plotly_chart(fig, use_container_width=True)
-
+    st.markdown(" ")
+    st.markdown(" ")
+    st.divider()
+    
+    st.markdown("""
+    <div style="
+        background-color: white;
+        color: black;
+        padding:25px;
+        border: 8px solid #D32F2F;
+        border-radius:6px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.10);
+        margin-left: 10%; 
+        margin-right: 10%;
+    ">
+    <h3 style="text-align:center; color: #C21807; margin-bottom: 20px; font-size: 40px">​💰 Conclusión Ventas</h3>
+    <ul>
+    <li style= "margin-left: 180px">Descenso general de las ventas durante el período analizado.</li>
+    <li style= "margin-left: 180px">Alta dependencia de promociones (más del 50% del volumen vendido).</li>
+    <li style= "margin-left: 180px">Manabí lidera el crecimiento y desarrollo comercial.</li>
+    <li style= "margin-left: 180px">Mejor rendimiento en tiendas tipo A; bajo desempeño en tipo C.</li>
+    <li style= "margin-left: 180px;  margin-bottom: 20px">Mayor volumen de ventas en días festivos, especialmente festivos añadidos (Additional).</li>
+    <p style= "margin-left: 30px"><b>Implicación:</b> reforzar estrategias promocionales y priorizar inversión en tiendas tipo A y regiones de alto rendimiento.</p>
+    </ul>
+    </div>
+    """, unsafe_allow_html=True)
 
 st.divider()
 st.caption("© 2025 - Cecilia Díaz Álvaro")
-
-
-
-
-
